@@ -25,6 +25,8 @@ this default profile requires:
 - a `[misc]` section
   - `name=""`, so that the PlayerProfileManager autoload can cache your profile by name upon entering SceneTree
 
+a rough example is linked in [default_profile.prfl](https://github.com/JAMSP00N/profile-manager/blob/master/example/default_profile.prfl)
+
 ---
 
 default behavior is to load all profiles in `PLAYER_PROFILE_DIR` (`user://player_profiles/` by default) & then see if there are stock profiles for players 1-4 (stored as `P1.prfl`...)
