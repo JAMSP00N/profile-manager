@@ -1,0 +1,26 @@
+[bindings]
+
+cursor_left=PackedStringArray("Key__65", "Button__13", "Axis__0__-1")
+cursor_right=PackedStringArray("Key__68", "Button__14", "Axis__0__1")
+cusror_up=PackedStringArray("Key__87", "Button__11", "Axis__1__-1")
+cursor_down=PackedStringArray("Key__83", "Button__12", "Axis__1__1")
+cam_rotate_left=PackedStringArray("Key__44", "Key__81", "Button__9")
+cam_rotate_right=PackedStringArray("Key__46", "Key__69", "Button__10")
+cam_pan=PackedStringArray("Key__4194325", "Button__2")
+cam_reset=PackedStringArray("Key__4194306", "Key__47", "Button__3")
+confirm=PackedStringArray("Key__4194309", "Key__32", "Button__0")
+cancel=PackedStringArray("Key__4194308", "Button__1")
+
+[user_data]
+
+matches_played=0
+matches_won=0
+time_played={
+  "h": 0,
+  "m": 0,
+  "s": 0
+}
+
+[misc]
+
+name="profile"
