@@ -8,7 +8,7 @@ profiles are designed with 2 main dictionaries:
 
 - `evt is InputEventKey` -> `"Key__{ (int)evt.PhysicalKeycode }"`
 - `evt is InputEventJoypadButton` -> `"Button__{ (int)evt.ButtonIndex }"`
-- `evt is InputEventJoypadMotion` -> `"Axis__{ (int)evt.Axis }__{AxisValue}"`
+- `evt is InputEventJoypadMotion` -> `"Axis__{ (int)evt.Axis }__{ evt.AxisValue }"`
 
 ---
 
