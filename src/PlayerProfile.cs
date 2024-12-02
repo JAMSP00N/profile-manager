@@ -1,5 +1,5 @@
+using System.Collections.Generic;
 using Godot;
-using Godot.Collections;
 using Logger;
 using static PlayerProfiles.Constants;
 
@@ -11,7 +11,7 @@ namespace PlayerProfiles
 	public string Name { get; internal set; }
 	public string Path { get; internal set; }
 
-	public Dictionary<string, Array<InputEvent>> Bindings { get; internal set; } = new ();
+	public Dictionary<string, List<InputEvent>> Bindings { get; internal set; } = new ();
 	public Dictionary<string, Variant> UserData { get; internal set; } = new ();
 
 	public bool IsInputEventBound (string evt)
@@ -52,26 +52,26 @@ namespace PlayerProfiles
 	{
 	  Log.Trace("PP - Save", path);
 	  if (profile == null)
-		return Error.InvalidParameter;
+			return Error.InvalidParameter;
 
 	  ConfigFile file = new ();
 
 	  foreach (var key in profile.Bindings.Keys)
 	  {
-		Array<InputEvent> binding = profile.Bindings[key];
-		string [] events = new string [binding.Count];
-		for (int idx = 0; idx < binding.Count; idx++)
-		  events[idx] = binding[idx].AsStringCode();
+			List<InputEvent> binding = profile.Bindings[key];
+			string [] events = new string [binding.Count];
+			for (int idx = 0; idx < binding.Count; idx++)
+				events[idx] = binding[idx].AsStringCode();
 
-		Log.Debug("PP - Save", $"bindings > {key} > {events}");
-		file.SetValue("bindings", key, events);
+			Log.Debug("PP - Save", $"bindings > {key} > {events}");
+			file.SetValue("bindings", key, events);
 	  }
 
 	  foreach (var key in profile.UserData.Keys)
 	  {
-		Variant value = profile.UserData[key];
-		Log.Debug("PP - Save", $"user_data > {key} > {value}");
-		file.SetValue("user_data", key, value);
+			Variant value = profile.UserData[key];
+			Log.Debug("PP - Save", $"user_data > {key} > {value}");
+			file.SetValue("user_data", key, value);
 	  }
 
 	  Log.Debug("PP - Save", $"misc > name > {profile.Name}");
@@ -81,9 +81,7 @@ namespace PlayerProfiles
 	}
 	public Error Save (string path) => Save(this, path);
 	public Error Save () => Save(this, this.Path);
-
-	// TODO(jam): check against default profile -
-	// if default contains section/key that loading profile doesn't, add default values
+	
 	public static Error Load (string path, out PlayerProfile profile, PlayerProfile defaultProfile = null)
 	{
 	  profile = null;
@@ -93,21 +91,21 @@ namespace PlayerProfiles
 	  ConfigFile file = new ();
 	  Error err = file.Load(path);
 	  if (err != Error.Ok)
-		return err;
+			return err;
 	  if (!file.HasSection("bindings") || !file.HasSection("user_data") || !file.HasSection("misc"))
-		return Error.Failed;
+			return Error.Failed;
 
 	  profile = new ()
 	  {
-	  Bindings = new (),
-	  UserData = new (),
-	  Name = "",
-	  Path = path,
+			Bindings = new (),
+			UserData = new (),
+			Name = "",
+			Path = path,
 	  };
 
     foreach (var key in file.GetSectionKeys("bindings"))
     {
-      Array<InputEvent> events = new ();
+      List<InputEvent> events = new ();
       string [] codes = (string [])file.GetValue("bindings", key, System.Array.Empty<string>());
       foreach (var code in codes)
         events.Add(code.ToInputEvent());
