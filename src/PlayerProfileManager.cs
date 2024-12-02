@@ -9,7 +9,7 @@ namespace PlayerProfiles
   
   public partial class PlayerProfileManager : Node
   {
-    public System.Collections.Generic.Dictionary<string, PlayerProfile> Profiles { get; } = new ();
+    public Dictionary<string, PlayerProfile> Profiles { get; } = new ();
 
     public override void _EnterTree ()
     {
